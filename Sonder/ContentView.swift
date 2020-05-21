@@ -7,13 +7,34 @@
 //
 
 import SwiftUI
+import SpriteKit
 
-struct ContentView: View {
-    var body: some View {
-        Text("Hello, World!")
+
+// issue graph struct (SKView)
+struct SceneView: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> SKView {
+        // Let SwiftUI handle the sizing
+        return SKView(frame: .zero)
+    }
+    func updateUIView(_ uiView: SKView, context: Context) {
+        if let scene = SKScene(fileNamed: "IssueGraph") {
+            scene.scaleMode = .aspectFill
+            uiView.presentScene(scene)
+        }
     }
 }
 
+
+// displayed struct
+struct ContentView: View {
+    var body: some View {
+        SceneView()
+    }
+}
+
+
+// preview stuff
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
