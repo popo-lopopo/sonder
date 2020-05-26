@@ -12,6 +12,7 @@ class IssueGraph: SKScene {
     
     // node that is being dragged around
     var selectednode:SKNode?
+    var touchoffset: CGPoint?
     
     override func didMove(to view: SKView) {
         // generate 4 test nodes
@@ -24,20 +25,26 @@ class IssueGraph: SKScene {
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        if self.atPoint(pos).name == "issue" {
-            self.selectednode = self.atPoint(pos)
+        let n: SKNode = self.atPoint(pos)
+        if n.name == "issue" {
+            let offx = pos.x - n.position.x
+            let offy = pos.y - n.position.y
+            self.selectednode = n
+            self.touchoffset = CGPoint(x: offx, y: offy)
         }
     }
     
     func touchMoved(toPoint pos : CGPoint) {
         if self.selectednode != nil {
-            self.selectednode?.position = pos
+            let newpos = CGPoint(x: pos.x - self.touchoffset!.x, y: pos.y - self.touchoffset!.y)
+            self.selectednode?.position = newpos
         }
     }
     
     func touchUp(atPoint pos : CGPoint) {
         if self.selectednode != nil {
             self.selectednode = nil
+            self.touchoffset = nil
         }
     }
     
