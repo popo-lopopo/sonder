@@ -15,18 +15,39 @@ class IssueGraph: SKScene {
     var touchoffset: CGPoint?
     
     override func didMove(to view: SKView) {
+        
+        // generate root node
+        let rootnode = SKShapeNode(circleOfRadius: 20)
+        rootnode.fillColor = UIColor.red
+        rootnode.name = "root"
+        rootnode.physicsBody = SKPhysicsBody(polygonFrom: rootnode.path!)
+        rootnode.physicsBody?.pinned = true
+        self.addChild(rootnode)
         // generate 4 test nodes
-        for i in 1...4 {
-            let issueNode = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 100, height: 100))
-            issueNode.position = CGPoint(x: 0, y: i * 100)
+        for i in 1...2 {
+            let issueNode = SKShapeNode(circleOfRadius: 50)
+            issueNode.fillColor = UIColor.blue
+            issueNode.position = CGPoint(x: 10, y: i * 100)
             issueNode.name = "issue"
+            issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
+            issueNode.physicsBody?.affectedByGravity = true
             self.addChild(issueNode)
+            // spring joint
+            let spring = SKPhysicsJointSpring.joint(
+                withBodyA: issueNode.physicsBody!,
+                bodyB: rootnode.physicsBody!,
+                anchorA: issueNode.position,
+                anchorB: rootnode.position
+                )
+            spring.frequency = 5.0
+            self.physicsWorld.add(spring)
         }
     }
     
     func touchDown(atPoint pos : CGPoint) {
         let n: SKNode = self.atPoint(pos)
         if n.name == "issue" {
+            n.physicsBody?.isDynamic = false
             let offx = pos.x - n.position.x
             let offy = pos.y - n.position.y
             self.selectednode = n
@@ -43,6 +64,7 @@ class IssueGraph: SKScene {
     
     func touchUp(atPoint pos : CGPoint) {
         if self.selectednode != nil {
+            self.selectednode!.physicsBody?.isDynamic = true
             self.selectednode = nil
             self.touchoffset = nil
         }
