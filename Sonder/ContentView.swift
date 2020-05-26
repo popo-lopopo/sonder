@@ -12,7 +12,6 @@ import SpriteKit
 
 // issue graph struct (SKView)
 struct SceneView: UIViewRepresentable {
-    
     func makeUIView(context: Context) -> SKView {
         // Let SwiftUI handle the sizing
         return SKView(frame: .zero)
@@ -29,7 +28,7 @@ struct SceneView: UIViewRepresentable {
 // displayed struct
 struct ContentView: View {
     var body: some View {
-        SceneView()
+        SceneView().edgesIgnoringSafeArea(.all)
     }
 }
 
