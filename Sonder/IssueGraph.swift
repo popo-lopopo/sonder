@@ -24,13 +24,14 @@ class IssueGraph: SKScene {
         rootnode.physicsBody?.pinned = true
         self.addChild(rootnode)
         // generate 4 test nodes
-        for i in 1...2 {
+        for i in 1...4 {
             let issueNode = SKShapeNode(circleOfRadius: 50)
             issueNode.fillColor = UIColor.blue
             issueNode.position = CGPoint(x: 10, y: i * 100)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
-            issueNode.physicsBody?.affectedByGravity = true
+            issueNode.physicsBody?.affectedByGravity = false
+            issueNode.physicsBody?.linearDamping = 10.0;
             self.addChild(issueNode)
             // spring joint
             let spring = SKPhysicsJointSpring.joint(
