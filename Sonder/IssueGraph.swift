@@ -23,17 +23,17 @@ class IssueGraph: SKScene {
     override func didMove(to view: SKView) {
         
         // generate root node
-        let rootnode = SKShapeNode(circleOfRadius: 20)
+        let rootnode = SKShapeNode(circleOfRadius: 10)
         rootnode.fillColor = UIColor.red
         rootnode.name = "root"
         rootnode.physicsBody = SKPhysicsBody(polygonFrom: rootnode.path!)
         rootnode.physicsBody?.pinned = true
+        rootnode.physicsBody?.mass = 1.0
         self.addChild(rootnode)
         // generate test nodes
-        let posmin:Int = 70
-        let posmax:Int = Int(self.frame.width / 6)
-        print(posmax)
-        for _ in 1...10 {
+        let posmin:Int = 40
+        let posmax:Int = Int(self.frame.width / 5)
+        for _ in 1...5 {
             let xnegval = Int.random(in:(-posmax)...(-posmin))
             let xposval = Int.random(in:posmin...posmax)
             let xchoice = Int.random(in:1...2)
@@ -57,8 +57,14 @@ class IssueGraph: SKScene {
             issueNode.position = CGPoint(x: xpos!, y: ypos!)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
+            issueNode.physicsBody?.mass = 1.0
             issueNode.physicsBody?.affectedByGravity = false
             issueNode.physicsBody?.linearDamping = 10.0;
+            // add reverse gravity field
+            let shield = SKFieldNode.radialGravityField()
+            shield.strength = -10
+            shield.falloff = 0
+            issueNode.addChild(shield)
             self.addChild(issueNode)
             // spring joint
             let spring = SKPhysicsJointSpring.joint(
@@ -67,7 +73,8 @@ class IssueGraph: SKScene {
                 anchorA: issueNode.position,
                 anchorB: rootnode.position
                 )
-            spring.frequency = 5.0
+            spring.frequency = 3.0
+            spring.damping = 0.2
             self.physicsWorld.add(spring)
         }
     }
