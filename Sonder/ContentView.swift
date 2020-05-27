@@ -20,7 +20,6 @@ struct SceneView: UIViewRepresentable {
         if let scene = SKScene(fileNamed: "IssueGraph") {
             scene.scaleMode = .aspectFill
             scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
-            print(scene.frame)
             uiView.presentScene(scene)
         }
     }

@@ -8,11 +8,17 @@
 
 import SpriteKit
 
+struct TouchInfo {
+    var location:CGPoint
+    var time:TimeInterval
+}
+
 class IssueGraph: SKScene {
     
     // node that is being dragged around
     var selectednode:SKNode?
     var touchoffset: CGPoint?
+    var history:[TouchInfo]?
     
     override func didMove(to view: SKView) {
         
@@ -23,11 +29,32 @@ class IssueGraph: SKScene {
         rootnode.physicsBody = SKPhysicsBody(polygonFrom: rootnode.path!)
         rootnode.physicsBody?.pinned = true
         self.addChild(rootnode)
-        // generate 4 test nodes
-        for i in 1...4 {
+        // generate test nodes
+        let posmin:Int = 70
+        let posmax:Int = Int(self.frame.width / 6)
+        print(posmax)
+        for _ in 1...10 {
+            let xnegval = Int.random(in:(-posmax)...(-posmin))
+            let xposval = Int.random(in:posmin...posmax)
+            let xchoice = Int.random(in:1...2)
+            let xpos:Int?
+            if xchoice == 1 {
+                xpos = xposval
+            } else {
+                xpos = xnegval
+            }
+            let ynegval = Int.random(in:(-posmax)...(-posmin))
+            let yposval = Int.random(in:posmin...posmax)
+            let ychoice = Int.random(in:1...2)
+            let ypos:Int?
+            if ychoice == 1 {
+                ypos = yposval
+            } else {
+                ypos = ynegval
+            }
             let issueNode = SKShapeNode(circleOfRadius: 50)
             issueNode.fillColor = UIColor.blue
-            issueNode.position = CGPoint(x: 10, y: i * 100)
+            issueNode.position = CGPoint(x: xpos!, y: ypos!)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
             issueNode.physicsBody?.affectedByGravity = false
@@ -45,40 +72,73 @@ class IssueGraph: SKScene {
         }
     }
     
-    func touchDown(atPoint pos : CGPoint) {
+    func touchDown(atPoint pos : CGPoint, touch: UITouch) {
         let n: SKNode = self.atPoint(pos)
         if n.name == "issue" {
-            n.physicsBody?.isDynamic = false
             let offx = pos.x - n.position.x
             let offy = pos.y - n.position.y
             self.selectednode = n
+            self.selectednode?.physicsBody?.isDynamic = false
             self.touchoffset = CGPoint(x: offx, y: offy)
+            self.history = [TouchInfo(location:pos, time:touch.timestamp)]
         }
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
+    func touchMoved(toPoint pos : CGPoint, touch: UITouch) {
+        let location = touch.location(in:self)
         if self.selectednode != nil {
             let newpos = CGPoint(x: pos.x - self.touchoffset!.x, y: pos.y - self.touchoffset!.y)
             self.selectednode?.position = newpos
+            self.history?.insert(TouchInfo(location:location, time:touch.timestamp),at:0)
         }
     }
     
     func touchUp(atPoint pos : CGPoint) {
         if self.selectednode != nil {
-            self.selectednode!.physicsBody?.isDynamic = true
+            
+            if let history = history, history.count > 1 && self.selectednode != nil {
+                var vx:CGFloat = 0.0
+                var vy:CGFloat = 0.0
+                var previousTouchInfo:TouchInfo?
+                // Adjust this value as needed
+                let maxIterations = 3
+                let numElts:Int = min(history.count, maxIterations)
+                // Loop over touch history
+                for index in 0..<numElts {
+                    let touchInfo = history[index]
+                    let location = touchInfo.location
+                    if let previousTouch = previousTouchInfo {
+                        // Step 1
+                        let dx = location.x - previousTouch.location.x
+                        let dy = location.y - previousTouch.location.y
+                        // Step 2
+                        let dt = CGFloat(touchInfo.time - previousTouch.time)
+                        // Step 3
+                        vx += dx / dt
+                        vy += dy / dt
+                    }
+                    previousTouchInfo = touchInfo
+                }
+                let count = CGFloat(numElts-1)
+                // Step 4
+                let velocity = CGVector(dx:vx/count,dy:vy/count)
+                self.selectednode?.physicsBody?.isDynamic = true
+                self.selectednode?.physicsBody?.velocity = velocity
+            }
             self.selectednode = nil
             self.touchoffset = nil
+            self.history = nil
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
-            self.touchDown(atPoint: t.location(in: self))
+            self.touchDown(atPoint: t.location(in: self), touch: t)
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+        for t in touches { self.touchMoved(toPoint: t.location(in: self), touch: t) }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
