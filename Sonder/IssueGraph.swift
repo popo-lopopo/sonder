@@ -8,17 +8,14 @@
 
 import SpriteKit
 
-struct TouchInfo {
-    var location:CGPoint
-    var time:TimeInterval
-}
-
 class IssueGraph: SKScene {
     
     // node that is being dragged around
     var selectednode:SKNode?
     var touchoffset: CGPoint?
     var history:[TouchInfo]?
+    var movetofocus: SKAction?
+    var startpos:CGPoint?
     
     func drawLines() {
         for n in self.children {
@@ -30,13 +27,31 @@ class IssueGraph: SKScene {
                 path.addLine(to: n.position)
                 let line = SKShapeNode(path: path)
                 line.name = "line"
+                line.zPosition = -1
                 self.addChild(line)
             }
             
         }
     }
     
+    struct TouchInfo {
+        var location:CGPoint
+        var time:TimeInterval
+    }
+    
+    func freezescene() {
+        self.isPaused = true
+        self.isUserInteractionEnabled = false
+    }
+    
     override func didMove(to view: SKView) {
+        
+        // build the focus action
+        let focusx = self.frame.width / 2 - 150
+        let focusy = self.frame.height / 2 - 250
+        
+        self.movetofocus = SKAction.move(to: CGPoint(x: focusx, y: focusy), duration: 0.3)
+        self.movetofocus?.timingMode = .easeInEaseOut
         
         // generate root node
         let rootnode = SKShapeNode(circleOfRadius: 10)
@@ -104,6 +119,7 @@ class IssueGraph: SKScene {
             self.selectednode?.physicsBody?.isDynamic = false
             self.touchoffset = CGPoint(x: offx, y: offy)
             self.history = [TouchInfo(location:pos, time:touch.timestamp)]
+            self.startpos = n.position
         }
     }
     
@@ -119,7 +135,12 @@ class IssueGraph: SKScene {
     func touchUp(atPoint pos : CGPoint) {
         if self.selectednode != nil {
             
-            if let history = history, history.count > 1 && self.selectednode != nil {
+            if self.selectednode?.position == self.startpos {
+                self.selectednode?.run(movetofocus!, completion: freezescene)
+                
+            }
+            
+            if let history = history, history.count > 1 {
                 var vx:CGFloat = 0.0
                 var vy:CGFloat = 0.0
                 var previousTouchInfo:TouchInfo?
