@@ -20,6 +20,22 @@ class IssueGraph: SKScene {
     var touchoffset: CGPoint?
     var history:[TouchInfo]?
     
+    func drawLines() {
+        for n in self.children {
+            if (n.name == "line") {
+                self.removeChildren(in: [n])
+            } else if (n.name == "issue") {
+                let path = CGMutablePath()
+                path.move(to: CGPoint(x:0,y:0))
+                path.addLine(to: n.position)
+                let line = SKShapeNode(path: path)
+                line.name = "line"
+                self.addChild(line)
+            }
+            
+        }
+    }
+    
     override func didMove(to view: SKView) {
         
         // generate root node
@@ -157,7 +173,7 @@ class IssueGraph: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        drawLines()
     }
     
     
