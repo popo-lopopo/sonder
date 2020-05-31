@@ -9,39 +9,47 @@
 import SwiftUI
 import SpriteKit
 
-
-// issue graph struct (SKView)
+// issue graph struct
 struct SceneView: UIViewRepresentable {
-    let scenename: String
+    var issueId: Binding<Int>
     
     // make
-    func makeUIView(context: Context) -> SKView {
-        // Let SwiftUI handle the sizing
-        let view = SKView(frame: .zero)
-        if let scene = SKScene(fileNamed: self.scenename) {
+    func makeUIView(context: Context) -> issueGraphSKView {
+        let view = issueGraphSKView(frame: .zero, issueId: issueId)
+        if let scene = SKScene(fileNamed: "IssueGraph") {
             scene.scaleMode = .aspectFill
             scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
+            view.showsFPS = true
             view.presentScene(scene)
         }
         return view
     }
     
     // update
-    func updateUIView(_ uiView: SKView, context: Context) {
-        // ...
-    }
-    
+    func updateUIView(_ view: issueGraphSKView, context: Context) {}
+
 }
 
 
 // displayed struct
 struct ContentView: View {
     
+    // id of the issue to display
+    // if unset, display issue Graph
+    @State var issueId = 0
+    
+    // main
     var body: some View {
-        
-        SceneView(scenename: "IssueGraph")
-        
-    }
+        Group {
+            if issueId != 0  {
+                //print("ISSUE ID IS ::::::::::: \(issueId)")
+                Text("Congrats! Issue id is \(issueId)")
+            } else {
+                //print("ISSUE ID IS ::::::::::: \(issueId)")
+                SceneView(issueId: $issueId)
+            }
+        }
+    } // end of body
     
 }
 

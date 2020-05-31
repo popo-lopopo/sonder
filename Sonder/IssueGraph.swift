@@ -16,6 +16,7 @@ class IssueGraph: SKScene {
     var history:[TouchInfo]?
     var movetofocus: SKAction?
     var startpos:CGPoint?
+    var v: issueGraphSKView?
     
     func drawLines() {
         for n in self.children {
@@ -42,9 +43,13 @@ class IssueGraph: SKScene {
     func freezescene() {
         self.isPaused = true
         self.isUserInteractionEnabled = false
+        v?.issueId.wrappedValue = 12
     }
     
     override func didMove(to view: SKView) {
+        
+        // downcast to issueGraphSKView to be able to access issueId
+        self.v = self.view as? issueGraphSKView
         
         // build the focus action
         let focusx = self.frame.width / 2 - 150
