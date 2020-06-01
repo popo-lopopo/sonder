@@ -16,7 +16,7 @@ struct ContentView: View {
     // id of the issue to display
     // if unset, display issue Graph
     @State var issueId = 0
-    
+        
     // main
     var body: some View {
         NavigationView {
@@ -32,9 +32,8 @@ struct ContentView: View {
                     Spacer()
                         .frame(height: 200)
                     NavigationView {
-                        Spacer()
-                            .frame(height: 100)
                         Text("content of \(issueId)")
+                        .animation(nil)
                     }
                     .offset(y: issueId == 0 ? 1000 : 0) // out of the way when the issue menu is displayed
                     .animation(.timingCurve(0.14, 1, 0.34, 1, duration: 0.6))
@@ -42,17 +41,18 @@ struct ContentView: View {
                 
             } // end of zstack
             .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(leading: issueId != 0 ?
-                    
-                    AnyView(Button(action: {
+            .navigationBarItems(leading: issueId != 0 ?
+                AnyView(
+                    Button(action: {
                         self.issueId = 0
                     }) {
                         HStack(spacing: 10){
                             Image(systemName: "arrow.left")
                             Text("Menu")
                         }
-                    }) : AnyView(Text(""))
-                        
+                    }
+                )
+                : AnyView(Text(""))
             )
         }
     } // end of body

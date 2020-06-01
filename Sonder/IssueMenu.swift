@@ -43,6 +43,8 @@ struct IssueMenu: UIViewRepresentable {
     
     // update
     func updateUIView(_ view: issueGraphSKView, context: Context) {
+        // dark mode support
+        view.scene?.backgroundColor = UIColor.systemGray6
         // re-activate the view if needed
         if self.issueId.wrappedValue == 0 {
             if view.isPaused {
@@ -57,7 +59,7 @@ struct IssueMenu: UIViewRepresentable {
                     // reset camera
                     let resetcamera = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 0.3)
                     resetcamera.timingFunction = SpriteKitTimingFunctions.easeOutExpo
-                    s.camera?.run(resetcamera)
+                    s.camera?.run(resetcamera, completion: {view.isUserInteractionEnabled = true})
                 }
             }
         }
@@ -94,6 +96,7 @@ class IssueGraph: SKScene {
                 path.move(to: CGPoint(x:0,y:0))
                 path.addLine(to: n.position)
                 let line = SKShapeNode(path: path)
+                line.strokeColor = UIColor.systemGray
                 line.name = "line"
                 line.zPosition = -1
                 self.addChild(line)
@@ -129,7 +132,8 @@ class IssueGraph: SKScene {
         
         // generate root node
         let rootnode = SKShapeNode(circleOfRadius: 10)
-        rootnode.fillColor = UIColor.red
+        rootnode.fillColor = UIColor.systemGray
+        rootnode.strokeColor = UIColor.systemGray
         rootnode.name = "root"
         rootnode.physicsBody = SKPhysicsBody(polygonFrom: rootnode.path!)
         rootnode.physicsBody?.pinned = true
@@ -137,9 +141,10 @@ class IssueGraph: SKScene {
         self.addChild(rootnode)
         
         // generate test nodes
-        let posmin:Int = 40
+        let radius = Int.random(in: 50...100)
+        let posmin:Int = radius + 10
         let posmax:Int = Int(self.frame.width / 5)
-        for _ in 1...5 {
+        for _ in 1...4 {
             let xnegval = Int.random(in:(-posmax)...(-posmin))
             let xposval = Int.random(in:posmin...posmax)
             let xchoice = Int.random(in:1...2)
@@ -158,8 +163,9 @@ class IssueGraph: SKScene {
             } else {
                 ypos = ynegval
             }
-            let issueNode = SKShapeNode(circleOfRadius: 50)
-            issueNode.fillColor = UIColor.blue
+            let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius))
+            issueNode.fillColor = UIColor.systemBlue
+            issueNode.strokeColor = UIColor.systemGray
             issueNode.position = CGPoint(x: xpos!, y: ypos!)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
@@ -211,6 +217,7 @@ class IssueGraph: SKScene {
         if self.selectednode != nil {
             
             if isTouch(start: self.startpos!, end: self.selectednode!.position) {
+                self.view?.isUserInteractionEnabled = false
                 self.v?.issueId.wrappedValue = 666
                 self.camera?.run(slidecamera!)
                 self.selectednode?.run(movetofocus!, completion: {
