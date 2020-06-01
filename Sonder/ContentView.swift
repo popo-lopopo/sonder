@@ -43,7 +43,7 @@ struct ContentView: View {
                 }
                 
             } // end of zstack
-                .navigationBarColor(.systemGray6)
+                .navigationBarColor(.clear) // requires cleanStatusBar.swift
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: issueId != 0 ?
                 AnyView(
