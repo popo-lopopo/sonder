@@ -9,16 +9,3 @@
 import SwiftUI
 import SpriteKit
 
-class issueGraphSKView: SKView {
-    var issueId: Binding<Int>
-    
-    init(frame: CGRect, issueId: Binding<Int>) {
-        self.issueId = issueId
-        super.init(frame: .zero)
-        
-    }
-    // from google (?)
-    required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-    }
-}

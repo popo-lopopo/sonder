@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E21A9EAC2479E7C300D455BD /* IssueGraph.sks in Resources */ = {isa = PBXBuildFile; fileRef = E21A9EAB2479E7C300D455BD /* IssueGraph.sks */; };
-		E23EEB7E248474C600870D7A /* issueGraphSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23EEB7D248474C600870D7A /* issueGraphSKView.swift */; };
 		E28391F42484FCAF009C7303 /* SpriteKitTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28391F32484FCAF009C7303 /* SpriteKitTimingFunctions.swift */; };
+		E28391F624851E79009C7303 /* IssueMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28391F524851E79009C7303 /* IssueMenu.swift */; };
 		E2E37AE92476B70C0004FCA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E37AE82476B70C0004FCA1 /* AppDelegate.swift */; };
 		E2E37AEB2476B70C0004FCA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E37AEA2476B70C0004FCA1 /* SceneDelegate.swift */; };
 		E2E37AEE2476B70C0004FCA1 /* Sonder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E2E37AEC2476B70C0004FCA1 /* Sonder.xcdatamodeld */; };
@@ -19,7 +19,6 @@
 		E2E37AF82476B70D0004FCA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2E37AF62476B70D0004FCA1 /* LaunchScreen.storyboard */; };
 		E2E37B032476B70E0004FCA1 /* SonderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E37B022476B70E0004FCA1 /* SonderTests.swift */; };
 		E2E37B0E2476B70E0004FCA1 /* SonderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E37B0D2476B70E0004FCA1 /* SonderUITests.swift */; };
-		E2E3ADB42479D7B500C49458 /* IssueGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E3ADB32479D7B500C49458 /* IssueGraph.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +40,8 @@
 
 /* Begin PBXFileReference section */
 		E21A9EAB2479E7C300D455BD /* IssueGraph.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IssueGraph.sks; sourceTree = "<group>"; };
-		E23EEB7D248474C600870D7A /* issueGraphSKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = issueGraphSKView.swift; sourceTree = "<group>"; };
 		E28391F32484FCAF009C7303 /* SpriteKitTimingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitTimingFunctions.swift; sourceTree = "<group>"; };
+		E28391F524851E79009C7303 /* IssueMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueMenu.swift; sourceTree = "<group>"; };
 		E2E37AE52476B70C0004FCA1 /* Sonder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sonder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E37AE82476B70C0004FCA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2E37AEA2476B70C0004FCA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +57,6 @@
 		E2E37B092476B70E0004FCA1 /* SonderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SonderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E37B0D2476B70E0004FCA1 /* SonderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SonderUITests.swift; sourceTree = "<group>"; };
 		E2E37B0F2476B70E0004FCA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E2E3ADB32479D7B500C49458 /* IssueGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueGraph.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,14 +107,13 @@
 		E2E37AE72476B70C0004FCA1 /* Sonder */ = {
 			isa = PBXGroup;
 			children = (
-				E21A9EAB2479E7C300D455BD /* IssueGraph.sks */,
-				E2E37AE82476B70C0004FCA1 /* AppDelegate.swift */,
-				E2E37AEA2476B70C0004FCA1 /* SceneDelegate.swift */,
-				E23EEB7D248474C600870D7A /* issueGraphSKView.swift */,
 				E2E37AEF2476B70C0004FCA1 /* ContentView.swift */,
-				E2E3ADB32479D7B500C49458 /* IssueGraph.swift */,
+				E28391F524851E79009C7303 /* IssueMenu.swift */,
 				E28391F32484FCAF009C7303 /* SpriteKitTimingFunctions.swift */,
 				E2E37AF12476B70D0004FCA1 /* Assets.xcassets */,
+				E2E37AE82476B70C0004FCA1 /* AppDelegate.swift */,
+				E2E37AEA2476B70C0004FCA1 /* SceneDelegate.swift */,
+				E21A9EAB2479E7C300D455BD /* IssueGraph.sks */,
 				E2E37AF62476B70D0004FCA1 /* LaunchScreen.storyboard */,
 				E2E37AF92476B70D0004FCA1 /* Info.plist */,
 				E2E37AEC2476B70C0004FCA1 /* Sonder.xcdatamodeld */,
@@ -283,11 +280,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E28391F624851E79009C7303 /* IssueMenu.swift in Sources */,
 				E28391F42484FCAF009C7303 /* SpriteKitTimingFunctions.swift in Sources */,
-				E2E3ADB42479D7B500C49458 /* IssueGraph.swift in Sources */,
 				E2E37AE92476B70C0004FCA1 /* AppDelegate.swift in Sources */,
 				E2E37AEE2476B70C0004FCA1 /* Sonder.xcdatamodeld in Sources */,
-				E23EEB7E248474C600870D7A /* issueGraphSKView.swift in Sources */,
 				E2E37AF02476B70C0004FCA1 /* ContentView.swift in Sources */,
 				E2E37AEB2476B70C0004FCA1 /* SceneDelegate.swift in Sources */,
 			);
