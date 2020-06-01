@@ -15,6 +15,7 @@ class IssueGraph: SKScene {
     var touchoffset: CGPoint?
     var history:[TouchInfo]?
     var movetofocus: SKAction?
+    var movecameratofocus: SKAction?
     var startpos:CGPoint?
     var v: issueGraphSKView?
     
@@ -41,9 +42,16 @@ class IssueGraph: SKScene {
     }
     
     func freezescene() {
+        drawLines()
         self.isPaused = true
-        self.isUserInteractionEnabled = false
-        v?.issueId.wrappedValue = 12
+        self.view?.isPaused = true
+        //v?.issueId.wrappedValue = 12
+    }
+    
+    func runfocus() {
+        self.selectednode?.physicsBody?.isDynamic = false
+        self.selectednode?.run(movetofocus!, completion: freezescene)
+        self.camera?.run(movecameratofocus!)
     }
     
     override func didMove(to view: SKView) {
@@ -51,12 +59,20 @@ class IssueGraph: SKScene {
         // downcast to issueGraphSKView to be able to access issueId
         self.v = self.view as? issueGraphSKView
         
-        // build the focus action
-        let focusx = self.frame.width / 2 - 150
-        let focusy = self.frame.height / 2 - 250
+        // setup the camera
+        let cameraNode = SKCameraNode()
+        self.addChild(cameraNode)
+        self.camera = cameraNode
         
-        self.movetofocus = SKAction.move(to: CGPoint(x: focusx, y: focusy), duration: 0.3)
+        // build the focus action
+        let focusy = self.frame.height / 2 - 230
+        self.movetofocus = SKAction.move(to: CGPoint(x: 500, y: focusy), duration: 3)
         self.movetofocus?.timingMode = .easeInEaseOut
+        
+        // build the camera focus action
+        let focuscamerax = self.frame.width / 2 - 100 + 500
+        self.movecameratofocus = SKAction.move(to: CGPoint(x: focuscamerax, y: 0), duration: 2)
+        self.movecameratofocus?.timingMode = .easeInEaseOut
         
         // generate root node
         let rootnode = SKShapeNode(circleOfRadius: 10)
@@ -66,6 +82,7 @@ class IssueGraph: SKScene {
         rootnode.physicsBody?.pinned = true
         rootnode.physicsBody?.mass = 1.0
         self.addChild(rootnode)
+        
         // generate test nodes
         let posmin:Int = 40
         let posmax:Int = Int(self.frame.width / 5)
@@ -141,8 +158,7 @@ class IssueGraph: SKScene {
         if self.selectednode != nil {
             
             if self.selectednode?.position == self.startpos {
-                self.selectednode?.run(movetofocus!, completion: freezescene)
-                
+                runfocus()
             }
             
             if let history = history, history.count > 1 {
