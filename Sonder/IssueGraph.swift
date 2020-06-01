@@ -8,6 +8,7 @@
 
 import SpriteKit
 
+
 class IssueGraph: SKScene {
     
     // node that is being dragged around
@@ -41,21 +42,8 @@ class IssueGraph: SKScene {
         var time:TimeInterval
     }
     
-    func freezescene() {
-        drawLines()
-        self.isPaused = true
-        self.view?.isPaused = true
-        //v?.issueId.wrappedValue = 12
-    }
-    
-    func runfocus() {
-        self.selectednode?.physicsBody?.isDynamic = false
-        self.selectednode?.run(movetofocus!, completion: freezescene)
-        self.camera?.run(movecameratofocus!)
-    }
-    
     override func didMove(to view: SKView) {
-        
+                
         // downcast to issueGraphSKView to be able to access issueId
         self.v = self.view as? issueGraphSKView
         
@@ -66,13 +54,13 @@ class IssueGraph: SKScene {
         
         // build the focus action
         let focusy = self.frame.height / 2 - 230
-        self.movetofocus = SKAction.move(to: CGPoint(x: 500, y: focusy), duration: 3)
-        self.movetofocus?.timingMode = .easeInEaseOut
+        self.movetofocus = SKAction.move(to: CGPoint(x: 0, y: focusy), duration: 1)
+        self.movetofocus?.timingFunction = SpriteKitTimingFunctions.easeOutExpo
         
         // build the camera focus action
-        let focuscamerax = self.frame.width / 2 - 100 + 500
-        self.movecameratofocus = SKAction.move(to: CGPoint(x: focuscamerax, y: 0), duration: 2)
-        self.movecameratofocus?.timingMode = .easeInEaseOut
+        let focuscamerax = self.frame.width / 2 - 100
+        self.movecameratofocus = SKAction.move(to: CGPoint(x: focuscamerax, y: 0), duration: 0.5)
+        self.movecameratofocus?.timingFunction = SpriteKitTimingFunctions.easeOutExpo
         
         // generate root node
         let rootnode = SKShapeNode(circleOfRadius: 10)
@@ -158,10 +146,11 @@ class IssueGraph: SKScene {
         if self.selectednode != nil {
             
             if self.selectednode?.position == self.startpos {
-                runfocus()
-            }
-            
-            if let history = history, history.count > 1 {
+                self.selectednode?.run(movetofocus!, completion: {
+                    self.view?.isPaused = true
+                })
+                self.camera?.run(movecameratofocus!)
+            } else if let history = history, history.count > 1 {
                 var vx:CGFloat = 0.0
                 var vy:CGFloat = 0.0
                 var previousTouchInfo:TouchInfo?
