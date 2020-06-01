@@ -19,15 +19,19 @@ struct ContentView: View {
     
     // main
     var body: some View {
-        Group {
-            if issueId != 0  {
-                Button("Congrats! Issue id is \(issueId)") {
-                    print("wow")
-                }
-            } else {
+        
+        NavigationView {
+            ZStack {
                 IssueMenu(issueId: $issueId)
+                if (issueId != 0) {
+                    Button("Back") {
+                        self.issueId = 0
+                    }
+                }
             }
+            .edgesIgnoringSafeArea(.all)
         }
+        
     } // end of body
     
 }

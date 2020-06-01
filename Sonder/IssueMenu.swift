@@ -42,7 +42,26 @@ struct IssueMenu: UIViewRepresentable {
     }
     
     // update
-    func updateUIView(_ view: issueGraphSKView, context: Context) {}
+    func updateUIView(_ view: issueGraphSKView, context: Context) {
+        // re-activate the view if needed
+        if self.issueId.wrappedValue == 0 {
+            if view.isPaused {
+                view.isPaused = false
+                if let s = view.scene {
+                    // resume dynamic for all nodes
+                    for c in s.children {
+                        if c.name == "issue" && c.physicsBody?.isDynamic == false {
+                            c.physicsBody?.isDynamic = true
+                        }
+                    }
+                    // reset camera
+                    let resetcamera = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 0.3)
+                    resetcamera.timingFunction = SpriteKitTimingFunctions.easeOutExpo
+                    s.camera?.run(resetcamera)
+                }
+            }
+        }
+    }
     
 }
 
@@ -54,7 +73,7 @@ class IssueGraph: SKScene {
     var touchoffset: CGPoint?
     var history:[TouchInfo]?
     var movetofocus: SKAction?
-    var movecameratofocus: SKAction?
+    var slidecamera: SKAction?
     var startpos:CGPoint?
     var v: issueGraphSKView?
     
@@ -93,20 +112,20 @@ class IssueGraph: SKScene {
         // downcast to issueGraphSKView to be able to access issueId
         self.v = self.view as? issueGraphSKView
         
-        // setup the camera
-        let cameraNode = SKCameraNode()
-        self.addChild(cameraNode)
-        self.camera = cameraNode
-        
         // build the focus action
         let focusy = self.frame.height / 2 - 230
-        self.movetofocus = SKAction.move(to: CGPoint(x: 0, y: focusy), duration: 1)
+        self.movetofocus = SKAction.move(to: CGPoint(x: 0, y: focusy), duration: 0.6)
         self.movetofocus?.timingFunction = SpriteKitTimingFunctions.easeOutExpo
+        // and the camera slide action
+        let focusx = self.frame.width / 2 - 130
+        self.slidecamera = SKAction.move(by: CGVector(dx: focusx, dy:0), duration: 0.6)
+        self.slidecamera?.timingFunction = SpriteKitTimingFunctions.easeOutExpo
         
-        // build the camera focus action
-        let focuscamerax = self.frame.width / 2 - 100
-        self.movecameratofocus = SKAction.move(to: CGPoint(x: focuscamerax, y: 0), duration: 0.5)
-        self.movecameratofocus?.timingFunction = SpriteKitTimingFunctions.easeOutExpo
+        
+        // build a camera
+        let camera = SKCameraNode()
+        scene?.addChild(camera)
+        self.camera = camera
         
         // generate root node
         let rootnode = SKShapeNode(circleOfRadius: 10)
@@ -160,7 +179,7 @@ class IssueGraph: SKScene {
                 anchorA: issueNode.position,
                 anchorB: rootnode.position
                 )
-            spring.frequency = 3.0
+            spring.frequency = 4.0
             spring.damping = 0.2
             self.physicsWorld.add(spring)
         }
@@ -192,10 +211,11 @@ class IssueGraph: SKScene {
         if self.selectednode != nil {
             
             if isTouch(start: self.startpos!, end: self.selectednode!.position) {
+                self.v?.issueId.wrappedValue = 666
+                self.camera?.run(slidecamera!)
                 self.selectednode?.run(movetofocus!, completion: {
                     self.view?.isPaused = true
                 })
-                self.camera?.run(movecameratofocus!)
             } else if let history = history, history.count > 1 {
                 
                 var vx:CGFloat = 0.0
