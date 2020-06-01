@@ -10,6 +10,7 @@
 		E21A9EAC2479E7C300D455BD /* IssueGraph.sks in Resources */ = {isa = PBXBuildFile; fileRef = E21A9EAB2479E7C300D455BD /* IssueGraph.sks */; };
 		E28391F42484FCAF009C7303 /* SpriteKitTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28391F32484FCAF009C7303 /* SpriteKitTimingFunctions.swift */; };
 		E28391F624851E79009C7303 /* IssueMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28391F524851E79009C7303 /* IssueMenu.swift */; };
+		E2A755FD2485795F00D32764 /* cleanStatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A755FC2485795F00D32764 /* cleanStatusBar.swift */; };
 		E2E37AE92476B70C0004FCA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E37AE82476B70C0004FCA1 /* AppDelegate.swift */; };
 		E2E37AEB2476B70C0004FCA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E37AEA2476B70C0004FCA1 /* SceneDelegate.swift */; };
 		E2E37AEE2476B70C0004FCA1 /* Sonder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E2E37AEC2476B70C0004FCA1 /* Sonder.xcdatamodeld */; };
@@ -42,6 +43,7 @@
 		E21A9EAB2479E7C300D455BD /* IssueGraph.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IssueGraph.sks; sourceTree = "<group>"; };
 		E28391F32484FCAF009C7303 /* SpriteKitTimingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitTimingFunctions.swift; sourceTree = "<group>"; };
 		E28391F524851E79009C7303 /* IssueMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueMenu.swift; sourceTree = "<group>"; };
+		E2A755FC2485795F00D32764 /* cleanStatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cleanStatusBar.swift; sourceTree = "<group>"; };
 		E2E37AE52476B70C0004FCA1 /* Sonder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sonder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E37AE82476B70C0004FCA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2E37AEA2476B70C0004FCA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				E2E37AEF2476B70C0004FCA1 /* ContentView.swift */,
+				E2A755FC2485795F00D32764 /* cleanStatusBar.swift */,
 				E28391F524851E79009C7303 /* IssueMenu.swift */,
 				E2E37AF12476B70D0004FCA1 /* Assets.xcassets */,
 				E28391F32484FCAF009C7303 /* SpriteKitTimingFunctions.swift */,
@@ -281,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E28391F624851E79009C7303 /* IssueMenu.swift in Sources */,
+				E2A755FD2485795F00D32764 /* cleanStatusBar.swift in Sources */,
 				E28391F42484FCAF009C7303 /* SpriteKitTimingFunctions.swift in Sources */,
 				E2E37AE92476B70C0004FCA1 /* AppDelegate.swift in Sources */,
 				E2E37AEE2476B70C0004FCA1 /* Sonder.xcdatamodeld in Sources */,

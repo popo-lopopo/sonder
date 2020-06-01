@@ -35,7 +35,6 @@ struct IssueMenu: UIViewRepresentable {
         if let scene = SKScene(fileNamed: "IssueGraph") {
             scene.scaleMode = .aspectFill
             scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
-            view.showsFPS = true
             view.presentScene(scene)
         }
         return view
@@ -141,10 +140,11 @@ class IssueGraph: SKScene {
         self.addChild(rootnode)
         
         // generate test nodes
-        let radius = Int.random(in: 50...100)
-        let posmin:Int = radius + 10
         let posmax:Int = Int(self.frame.width / 5)
         for _ in 1...4 {
+            let radius = Int.random(in: 50...100)
+            let posmin:Int = radius + 10
+            
             let xnegval = Int.random(in:(-posmax)...(-posmin))
             let xposval = Int.random(in:posmin...posmax)
             let xchoice = Int.random(in:1...2)

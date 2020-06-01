@@ -10,6 +10,11 @@ import SwiftUI
 import SpriteKit
 
 
+
+
+
+
+
 // displayed struct
 struct ContentView: View {
     
@@ -25,9 +30,7 @@ struct ContentView: View {
                 
                 // main menu
                 IssueMenu(issueId: $issueId)
-                // above it:
-                // - a vertical stack                   (top -> bottom
-                //          \_ an horizontal stack      (left -> right)
+                // overlay
                 VStack {
                     Spacer()
                         .frame(height: 200)
@@ -35,11 +38,12 @@ struct ContentView: View {
                         Text("content of \(issueId)")
                         .animation(nil)
                     }
-                    .offset(y: issueId == 0 ? 1000 : 0) // out of the way when the issue menu is displayed
-                    .animation(.timingCurve(0.14, 1, 0.34, 1, duration: 0.6))
+                    .offset(x: issueId == 0 ? UIScreen.main.bounds.size.width : 0) // out of the way when the issue menu is displayed
+                        .animation(.timingCurve(0.14, 1, 0.34, 1, duration: issueId == 0 ? 0.3 : 0.6))
                 }
                 
             } // end of zstack
+                .navigationBarColor(.systemGray6)
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: issueId != 0 ?
                 AnyView(
