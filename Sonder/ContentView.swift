@@ -16,8 +16,14 @@ struct ContentView: View {
     // id of the issue to display
     // if unset, display issue Graph
     @State var issueId = 0
+    @State private var offset = CGSize.zero // for back swipe
     
-    @State private var offset = CGSize.zero
+    // setup List {}
+    init(){
+        UITableView.appearance().backgroundColor = UIColor.systemBackground
+        UITableViewCell.appearance().backgroundColor = UIColor.systemBackground
+        UITableView.appearance().tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
+    }
         
     // main
     var body: some View {
@@ -84,7 +90,6 @@ struct ContentView: View {
                             // list of ideas
                             ideaList()
                             
-                            
                         }
                         
                         
@@ -97,7 +102,7 @@ struct ContentView: View {
                                     width: 30,
                                     height: UIScreen.main.bounds.size.height - geometry.safeAreaInsets.top - geometry.safeAreaInsets.bottom
                                 )
-                                .offset(x: self.offset.width * 2, y: 0)
+                                .offset(x: self.offset.width, y: 0)
                                     .opacity(0.0001)
                                 .gesture(
                                     DragGesture()
@@ -105,7 +110,7 @@ struct ContentView: View {
                                             self.offset = gesture.translation
                                         }
                                         .onEnded { _ in
-                                            if abs(self.offset.width) > 100 {
+                                            if abs(self.offset.width) > 20 {
                                                 self.issueId = 0
                                             }
                                             self.offset = .zero

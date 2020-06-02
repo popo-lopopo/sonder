@@ -41,22 +41,39 @@ struct ideaRow: View {
 
 struct ideaList: View {
     var body: some View {
-        let a = idea(name: "aaa")
-        let b = idea(name: "bbb")
-        let c = idea(name: "ccc")
-        let d = idea(name: "ddd")
-        let e = idea(name: "eee")
-        let ideas = [a,b,c,d,e]
+        // ideas of day 1
+        let a1 = idea(name: "aaa")
+        let b1 = idea(name: "bbb")
+        let c1 = idea(name: "ccc")
+        let d1 = idea(name: "ddd")
+        let e1 = idea(name: "eee")
+        let ideasday1 = [a1,b1,c1,d1,e1]
+        
+        // ideas of day 2
+        let a2 = idea(name: "aaa")
+        let b2 = idea(name: "bbb")
+        let c2 = idea(name: "ccc")
+        let d2 = idea(name: "ddd")
+        let e2 = idea(name: "eee")
+        let ideasday2 = [a2,b2,c2,d2,e2]
+        
+        let sections = [timeperiod(name: "Today", contentideas: ideasday1) ,timeperiod(name: "This Week", contentideas: ideasday2)]
+        
         return List {
-            ForEach(ideas) { idea in
-                ideaRow(idea: idea)
-                    .listRowInsets(EdgeInsets(
-                        top: 30,
-                        leading: 30,
-                        bottom: 30,
-                        trailing: 30))
+            
+            ForEach (sections) {section in
+                
+                Section(header: Text(section.name)) {
+                    ForEach (section.contentideas) { idea in
+                        ideaRow(idea: idea)
+                    }
+                }
             }
+            
         }
+        .listStyle(GroupedListStyle())
+        
+        
         
     }
 }

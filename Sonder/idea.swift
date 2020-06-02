@@ -12,3 +12,9 @@ struct idea: Identifiable {
     var id = UUID()
     var name: String
 }
+
+struct timeperiod: Identifiable {
+    var id = UUID()
+    var name: String
+    var contentideas: [idea]
+}
