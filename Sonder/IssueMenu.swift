@@ -97,7 +97,7 @@ class IssueGraph: SKScene {
                 path.move(to: CGPoint(x:0,y:0))
                 path.addLine(to: n.position)
                 let line = SKShapeNode(path: path)
-                line.strokeColor = UIColor.systemGray
+                line.strokeColor = UIColor.secondaryLabel
                 line.name = "line"
                 line.zPosition = -1
                 self.addChild(line)
@@ -130,12 +130,14 @@ class IssueGraph: SKScene {
         scene?.addChild(camera)
         self.camera = camera
         
+
         // generate root node
         let rootnode = SKShapeNode(circleOfRadius: 10)
         rootnode.fillColor = UIColor.clear
         rootnode.strokeColor = UIColor.clear
         rootnode.name = "root"
         rootnode.physicsBody = SKPhysicsBody(polygonFrom: rootnode.path!)
+        rootnode.physicsBody?.categoryBitMask = 0
         rootnode.physicsBody?.pinned = true
         rootnode.physicsBody?.mass = 1.0
         self.addChild(rootnode)
@@ -147,8 +149,9 @@ class IssueGraph: SKScene {
         var xval:Int?
         for _ in 1...7 {
             
-            radius = Int.random(in: 50...90)
-            posmin = radius! + 10
+            radius = Int.random(in: 30...90)
+            posmin = radius! + 30
+            
             xval = Int.random(in: posmin!...posmax)
 
             // random startpos on a circle of radius xval
@@ -156,25 +159,25 @@ class IssueGraph: SKScene {
             let randx = CGFloat(cos(angle) * Float(xval!))
             let randy = CGFloat(sin(angle) * Float(xval!))
             
-            print(randx)
-            print(randy)
-            
             // issue node
             let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius!))
             issueNode.fillColor = UIColor.systemBlue
-            issueNode.strokeColor = UIColor.systemGray
+            issueNode.strokeColor = UIColor.secondaryLabel
             issueNode.position = CGPoint(x: randx, y: randy)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
-            issueNode.physicsBody?.mass = 1.0
+            //ssueNode.physicsBody?.mass = 1.0
             issueNode.physicsBody?.affectedByGravity = false
-            issueNode.physicsBody?.linearDamping = 10.0;
+            issueNode.physicsBody?.linearDamping = 10
             
             // add reverse gravity field
             let shield = SKFieldNode.radialGravityField()
-            shield.strength = -10
+            shield.strength = -6
             shield.falloff = 0
             issueNode.addChild(shield)
+
+            
+            // add issue node
             self.addChild(issueNode)
             
             // spring joint
@@ -185,7 +188,7 @@ class IssueGraph: SKScene {
                 anchorB: rootnode.position
                 )
             spring.frequency = 4.0
-            spring.damping = 0.4
+            spring.damping = 1.0
             self.physicsWorld.add(spring)
             
         
