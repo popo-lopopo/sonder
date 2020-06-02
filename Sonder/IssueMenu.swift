@@ -32,8 +32,12 @@ struct IssueMenu: UIViewRepresentable {
     // make
     func makeUIView(context: Context) -> issueGraphSKView {
         let view = issueGraphSKView(frame: .zero, issueId: issueId)
+        view.allowsTransparency = true
+        view.backgroundColor = .clear
+        
         if let scene = SKScene(fileNamed: "IssueGraph") {
             scene.scaleMode = .aspectFill
+            scene.backgroundColor = .clear
             scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
             view.presentScene(scene)
         }
@@ -42,8 +46,6 @@ struct IssueMenu: UIViewRepresentable {
     
     // update
     func updateUIView(_ view: issueGraphSKView, context: Context) {
-        // dark mode support
-        view.scene?.backgroundColor = UIColor.systemGray6
         // re-activate the view if needed
         if self.issueId.wrappedValue == 0 {
             if view.isPaused {
@@ -113,9 +115,8 @@ class IssueGraph: SKScene {
                 
         // downcast to issueGraphSKView to be able to access issueId
         self.v = self.view as? issueGraphSKView
-        
         // build the focus action
-        let focusy = self.frame.height / 2 - 230
+        let focusy = self.frame.height / 2 - 120
         self.movetofocus = SKAction.move(to: CGPoint(x: 0, y: focusy), duration: 0.6)
         self.movetofocus?.timingFunction = SpriteKitTimingFunctions.easeOutExpo
         // and the camera slide action
@@ -131,8 +132,8 @@ class IssueGraph: SKScene {
         
         // generate root node
         let rootnode = SKShapeNode(circleOfRadius: 10)
-        rootnode.fillColor = UIColor.systemGray
-        rootnode.strokeColor = UIColor.systemGray
+        rootnode.fillColor = UIColor.clear
+        rootnode.strokeColor = UIColor.clear
         rootnode.name = "root"
         rootnode.physicsBody = SKPhysicsBody(polygonFrom: rootnode.path!)
         rootnode.physicsBody?.pinned = true
@@ -140,44 +141,38 @@ class IssueGraph: SKScene {
         self.addChild(rootnode)
         
         // generate test nodes
+        var radius:Int?
+        var posmin:Int?
         let posmax:Int = Int(self.frame.width / 5)
-        for _ in 1...4 {
-            let radius = Int.random(in: 50...100)
-            let posmin:Int = radius + 10
+        var xval:Int?
+        for _ in 1...7 {
             
-            let xnegval = Int.random(in:(-posmax)...(-posmin))
-            let xposval = Int.random(in:posmin...posmax)
-            let xchoice = Int.random(in:1...2)
-            let xpos:Int?
-            if xchoice == 1 {
-                xpos = xposval
-            } else {
-                xpos = xnegval
+            radius = Int.random(in: 50...90)
+            posmin = radius! + 10
+            
+            xval = Int.random(in: posmin!...posmax)
+            if Int.random(in: 1...2) == 1 {
+                xval = -xval!
             }
-            let ynegval = Int.random(in:(-posmax)...(-posmin))
-            let yposval = Int.random(in:posmin...posmax)
-            let ychoice = Int.random(in:1...2)
-            let ypos:Int?
-            if ychoice == 1 {
-                ypos = yposval
-            } else {
-                ypos = ynegval
-            }
-            let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius))
+            
+            
+            let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius!))
             issueNode.fillColor = UIColor.systemBlue
             issueNode.strokeColor = UIColor.systemGray
-            issueNode.position = CGPoint(x: xpos!, y: ypos!)
+            issueNode.position = CGPoint(x: xval!, y: xval!)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
             issueNode.physicsBody?.mass = 1.0
             issueNode.physicsBody?.affectedByGravity = false
             issueNode.physicsBody?.linearDamping = 10.0;
+            
             // add reverse gravity field
             let shield = SKFieldNode.radialGravityField()
             shield.strength = -10
             shield.falloff = 0
             issueNode.addChild(shield)
             self.addChild(issueNode)
+            
             // spring joint
             let spring = SKPhysicsJointSpring.joint(
                 withBodyA: issueNode.physicsBody!,
@@ -186,8 +181,10 @@ class IssueGraph: SKScene {
                 anchorB: rootnode.position
                 )
             spring.frequency = 4.0
-            spring.damping = 0.2
+            spring.damping = 0.4
             self.physicsWorld.add(spring)
+            
+        
         }
     }
     
