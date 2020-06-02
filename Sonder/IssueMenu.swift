@@ -149,7 +149,7 @@ class IssueGraph: SKScene {
         var xval:Int?
         for _ in 1...7 {
             
-            radius = Int.random(in: 30...90)
+            radius = Int.random(in: 30...100)
             posmin = radius! + 30
             
             xval = Int.random(in: posmin!...posmax)
@@ -166,13 +166,13 @@ class IssueGraph: SKScene {
             issueNode.position = CGPoint(x: randx, y: randy)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
-            //ssueNode.physicsBody?.mass = 1.0
+            issueNode.physicsBody?.mass = 1.0
             issueNode.physicsBody?.affectedByGravity = false
             issueNode.physicsBody?.linearDamping = 10
             
             // add reverse gravity field
             let shield = SKFieldNode.radialGravityField()
-            shield.strength = -6
+            shield.strength = -5
             shield.falloff = 0
             issueNode.addChild(shield)
 
@@ -187,8 +187,8 @@ class IssueGraph: SKScene {
                 anchorA: issueNode.position,
                 anchorB: rootnode.position
                 )
-            spring.frequency = 4.0
-            spring.damping = 1.0
+            spring.frequency = 5.0
+            spring.damping = 0.9
             self.physicsWorld.add(spring)
             
         

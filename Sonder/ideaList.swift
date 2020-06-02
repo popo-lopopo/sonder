@@ -11,7 +11,31 @@ import SwiftUI
 struct ideaRow: View {
     var idea: idea
     var body: some View {
-        Text("\(idea.name) is a cool idea name lol")
+        HStack {
+            Image("default_idea_thumbnail")
+            
+            VStack (alignment: .leading) {
+                Text("\(idea.name) is a cool idea name lol on rigole ahahaaha ahah")
+                    .lineLimit(2)
+                    .font(.headline)
+                    .padding(.top, 10)
+                    .padding(.trailing, 30)
+                Spacer()
+                HStack {
+                    VStack (alignment: .leading) {
+                        Text("123 likes")
+                        Text("123 comments")
+                    }
+                    .font(.caption)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                }
+                .padding(.bottom, 10)
+                
+            }
+            .padding(.leading, 10)
+            
+        }
     }
 }
 
@@ -23,8 +47,16 @@ struct ideaList: View {
         let d = idea(name: "ddd")
         let e = idea(name: "eee")
         let ideas = [a,b,c,d,e]
-        return List(ideas) { idea in
-            ideaRow(idea: idea)
+        return List {
+            ForEach(ideas) { idea in
+                ideaRow(idea: idea)
+                    .listRowInsets(EdgeInsets(
+                        top: 30,
+                        leading: 30,
+                        bottom: 30,
+                        trailing: 30))
+            }
         }
+        
     }
 }

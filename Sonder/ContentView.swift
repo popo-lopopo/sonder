@@ -10,22 +10,6 @@ import SwiftUI
 import SpriteKit
 
 
-
-struct Triangle: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
-
-        return path
-    }
-}
-
-
-
 // displayed struct
 struct ContentView: View {
     
@@ -76,13 +60,15 @@ struct ContentView: View {
                     // overlay
                     ZStack {
                         
-                        VStack (alignment: .leading, spacing: 0) {
+                        VStack (alignment: .leading) {
                             VStack (alignment: .leading) {
                                 // desc of the selected issue
                                 Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ultricies lacinia. Vivamus eu aliquam felis. Morbi at rutrum arcu. Fusce nulla dolor, congue at orci nec, aliquet congue purus. ")
                                     .font(.caption)
+                                    
                                 Spacer()
-                                // more button
+                                
+                                // learn more button
                                 Text("Learn More")
                                     .font(.caption)
                                     .padding(2.0)
@@ -90,18 +76,15 @@ struct ContentView: View {
                                         RoundedRectangle(cornerRadius: 5)
                                         .stroke(lineWidth: 1)
                                     )
-                                    .offset(y:-10)
                             }
-                            .padding(.leading, UIScreen.main.bounds.size.width / 3.333 + 20)
-                            .padding(.trailing, 20)
-                            .frame(height: 150)
-                            // small white triangle
-                            Triangle()
-                                .fill(Color(UIColor.systemBackground))
-                                .frame(width: 20, height: 17)
-                                .offset(x: 50)
+                            .padding(.leading, UIScreen.main.bounds.size.width / 3 + 30)
+                            .padding(.trailing, 30)
+                            .padding(.bottom, 20)
+                            .frame(height: 160)
                             // list of ideas
                             ideaList()
+                            
+                            
                         }
                         
                         
