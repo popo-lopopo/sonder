@@ -143,23 +143,27 @@ class IssueGraph: SKScene {
         // generate test nodes
         var radius:Int?
         var posmin:Int?
-        let posmax:Int = Int(self.frame.width / 5)
+        let posmax:Int = Int(self.frame.width / 3)
         var xval:Int?
         for _ in 1...7 {
             
             radius = Int.random(in: 50...90)
             posmin = radius! + 10
-            
             xval = Int.random(in: posmin!...posmax)
-            if Int.random(in: 1...2) == 1 {
-                xval = -xval!
-            }
+
+            // random startpos on a circle of radius xval
+            let angle = Float.random(in: 0...1) * Float.pi * 2;
+            let randx = CGFloat(cos(angle) * Float(xval!))
+            let randy = CGFloat(sin(angle) * Float(xval!))
             
+            print(randx)
+            print(randy)
             
+            // issue node
             let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius!))
             issueNode.fillColor = UIColor.systemBlue
             issueNode.strokeColor = UIColor.systemGray
-            issueNode.position = CGPoint(x: xval!, y: xval!)
+            issueNode.position = CGPoint(x: randx, y: randy)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
             issueNode.physicsBody?.mass = 1.0
