@@ -97,7 +97,7 @@ class IssueGraph: SKScene {
                 path.move(to: CGPoint(x:0,y:0))
                 path.addLine(to: n.position)
                 let line = SKShapeNode(path: path)
-                line.strokeColor = UIColor.secondaryLabel
+                line.strokeColor = UIColor.systemBlue
                 line.name = "line"
                 line.zPosition = -1
                 self.addChild(line)
@@ -162,7 +162,7 @@ class IssueGraph: SKScene {
             // issue node
             let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius!))
             issueNode.fillColor = UIColor.systemBlue
-            issueNode.strokeColor = UIColor.secondaryLabel
+            issueNode.strokeColor = UIColor.systemBlue
             issueNode.position = CGPoint(x: randx, y: randy)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)

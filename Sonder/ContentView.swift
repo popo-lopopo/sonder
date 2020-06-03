@@ -66,7 +66,7 @@ struct ContentView: View {
                     // overlay
                     ZStack {
                         
-                        VStack (alignment: .leading) {
+                        VStack (alignment: .leading, spacing: 0) {
                             VStack (alignment: .leading) {
                                 // desc of the selected issue
                                 Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ultricies lacinia. Vivamus eu aliquam felis. Morbi at rutrum arcu. Fusce nulla dolor, congue at orci nec, aliquet congue purus. ")
@@ -87,7 +87,11 @@ struct ContentView: View {
                             .padding(.trailing, 30)
                             .padding(.bottom, 20)
                             .frame(height: 160)
-                            // list of ideas
+                            // list of ideas with top border
+                            Rectangle()
+                                .fill(Color(UIColor.systemBlue))
+                                .frame(width: UIScreen.main.bounds.size.width, height: 0.2, alignment: .center)
+                            
                             ideaList()
                             
                         }
