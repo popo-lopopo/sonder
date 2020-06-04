@@ -82,10 +82,10 @@ struct ContentView: View {
                             .frame(height: 200)
                             
                             
-                            // top border
-                            Rectangle()
-                                .fill(Color(UIColor.systemBlue))
-                                .frame(width: UIScreen.main.bounds.size.width, height: 0.2, alignment: .center)
+//                            // top border
+//                            Rectangle()
+//                                .fill(Color(UIColor.systemBlue))
+//                                .frame(width: UIScreen.main.bounds.size.width, height: 0.2, alignment: .center)
                             // list of ideas
                             ideaList()
                         }
