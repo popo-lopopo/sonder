@@ -11,48 +11,58 @@ import SwiftUI
 struct ideaRow: View {
     var idea: idea
     var body: some View {
-        HStack {
+        NavigationLink (destination: ideaView(idea: idea)) {
+        
             
-            // image (left)
-            Image("default_idea_thumbnail")
-            
-            // right side
-            VStack (alignment: .leading) {
+            HStack {
                 
-                // title
-                Text("\(idea.name) is a cool idea name lol on rigole ahahaaha ahah")
-                    //.fontWeight(.bold)
-                    .lineLimit(2)
-                    .padding(.top, 5)
-                    //.padding(.trailing, 30)
+                // image (left)
+                Image("default_idea_thumbnail")
                 
-                Spacer()
-                
-                // likes & comments
-                HStack {
-                    VStack (alignment: .leading) {
-                        HStack (spacing: 20) {
-                            HStack (spacing: 5) {
-                                Image(systemName: "heart")
-                                Text("123")
-                            }
-                            HStack (spacing: 5) {
-                                Image(systemName: "bubble.left")
-                                Text("94")
-                            }
-                            Spacer()
-                        }
-                    }
-                    .font(.caption)
+                // right side
+                VStack (alignment: .leading) {
+                    
+                    // title
+                    Text("\(idea.name) is a cool idea name lol on rigole ahahaaha ahah")
+                        //.fontWeight(.bold)
+                        .lineLimit(2)
+                        .padding(.top, 5)
+                        //.padding(.trailing, 30)
+                    
                     Spacer()
-                    Image(systemName: "chevron.right")
+                    
+                    // likes & comments
+                    HStack {
+                        VStack (alignment: .leading) {
+                            HStack (spacing: 20) {
+                                HStack (spacing: 5) {
+                                    Image(systemName: "heart")
+                                    Text("123")
+                                }
+                                HStack (spacing: 5) {
+                                    Image(systemName: "bubble.left")
+                                    Text("94")
+                                }
+                                Spacer()
+                            }
+                        }
+                        .font(.caption)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                    .padding(.bottom, 5)
+                    
                 }
-                .padding(.bottom, 5)
+                .padding(.leading, 10)
                 
             }
-            .padding(.leading, 10)
+            
+            
+            
             
         }
+        .buttonStyle(PlainButtonStyle())
+        
     }
 }
 

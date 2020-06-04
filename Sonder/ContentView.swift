@@ -130,10 +130,28 @@ struct ContentView: View {
                         Button(action: {
                             self.issueId = 0
                         }) {
-                            HStack(spacing: 10){
+                            HStack {
+                                // matches the style of the back button of child views
                                 Image(systemName: "chevron.left")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                    .frame(height:21)
+                                    .offset(x: -7)
+                                .font(Font.title.weight(.medium))
+                                //
                                 Text("Menu")
                             }
+                            
+
+                            
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                                .frame(height: 23)
+                            
+//                            HStack(spacing: 10){
+//                                Image(systemName: "chevron.left")
+//                                Text("Menu")
+//                            }
                         }
                     )
                     : AnyView(Text(""))
