@@ -12,25 +12,42 @@ struct ideaRow: View {
     var idea: idea
     var body: some View {
         HStack {
+            
+            // image (left)
             Image("default_idea_thumbnail")
             
+            // right side
             VStack (alignment: .leading) {
+                
+                // title
                 Text("\(idea.name) is a cool idea name lol on rigole ahahaaha ahah")
+                    //.fontWeight(.bold)
                     .lineLimit(2)
-                    .font(.headline)
-                    .padding(.top, 10)
+                    .padding(.top, 5)
                     .padding(.trailing, 30)
+                
                 Spacer()
+                
+                // likes & comments
                 HStack {
                     VStack (alignment: .leading) {
-                        Text("123 likes")
-                        Text("123 comments")
+                        HStack (spacing: 20) {
+                            HStack (spacing: 5) {
+                                Image(systemName: "heart")
+                                Text("123")
+                            }
+                            HStack (spacing: 5) {
+                                Image(systemName: "bubble.left")
+                                Text("94")
+                            }
+                            Spacer()
+                        }
                     }
                     .font(.caption)
                     Spacer()
                     Image(systemName: "chevron.right")
                 }
-                .padding(.bottom, 10)
+                .padding(.bottom, 5)
                 
             }
             .padding(.leading, 10)
@@ -65,13 +82,16 @@ struct ideaList: View {
                 ForEach (sections) {section in
                     
                     // group label
-                    Text(section.name)
-                        .font(.caption)
-                        .foregroundColor(Color(UIColor.systemGray))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 60)
-                        .padding(.bottom, 15)
-                        .padding(.leading, 20)
+                    HStack {
+                        Text(section.name)
+                            .fontWeight(.light)
+                        Spacer()
+                    }
+                    .foregroundColor(Color(UIColor.systemGray))
+                    .padding(.top, 60)
+                    .padding(.bottom, 15)
+                    .padding(.leading, 20)
+                    
                     
                     // idea row
                     ForEach (section.contentideas) { idea in
