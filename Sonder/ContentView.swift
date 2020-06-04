@@ -17,13 +17,6 @@ struct ContentView: View {
     // if unset, display issue Graph
     @State var issueId = 0
     @State private var offset = CGSize.zero // for back swipe
-    
-    // setup List {}
-    init(){
-        UITableView.appearance().backgroundColor = UIColor.systemBackground
-        UITableViewCell.appearance().backgroundColor = UIColor.systemBackground
-        UITableView.appearance().tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
-    }
         
     // main
     var body: some View {
@@ -63,17 +56,16 @@ struct ContentView: View {
                     }
                     
                     
-                    // overlay
+                    // detail of the selected issue
                     ZStack {
                         
                         VStack (alignment: .leading, spacing: 0) {
+                            // right text lext to the icon
                             VStack (alignment: .leading) {
                                 // desc of the selected issue
                                 Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ultricies lacinia. Vivamus eu aliquam felis. Morbi at rutrum arcu. Fusce nulla dolor, congue at orci nec, aliquet congue purus. ")
                                     .font(.caption)
-                                    
                                 Spacer()
-                                
                                 // learn more button
                                 Text("Learn More")
                                     .font(.caption)
@@ -85,22 +77,23 @@ struct ContentView: View {
                             }
                             .padding(.leading, UIScreen.main.bounds.size.width / 3 + 30)
                             .padding(.trailing, 30)
-                            .padding(.bottom, 20)
-                            .frame(height: 160)
-                            // list of ideas with top border
+                            .padding(.bottom, 30)
+                            .padding(.top, 10)
+                            .frame(height: 200)
+                            
+                            
+                            // top border
                             Rectangle()
                                 .fill(Color(UIColor.systemBlue))
                                 .frame(width: UIScreen.main.bounds.size.width, height: 0.2, alignment: .center)
-                            
+                            // list of ideas
                             ideaList()
-                            
                         }
                         
                         
-                        
+                        // swipe back handler
                         GeometryReader { geometry in
                             HStack {
-                                                                
                                 Color.white
                                 .frame(
                                     width: 30,
@@ -120,9 +113,7 @@ struct ContentView: View {
                                             self.offset = .zero
                                         }
                                 )
-                                    
                                 Spacer()
-                                
                             }
                         }
                             

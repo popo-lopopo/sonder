@@ -59,21 +59,33 @@ struct ideaList: View {
         
         let sections = [timeperiod(name: "Today", contentideas: ideasday1) ,timeperiod(name: "This Week", contentideas: ideasday2)]
         
-        return List {
+        return ScrollView {
             
-            ForEach (sections) {section in
-                
-                Section(header: Text(section.name)) {
+            VStack (spacing: 0) {
+                ForEach (sections) {section in
+                    
+                    // group label
+                    Text(section.name)
+                        .font(.caption)
+                        .foregroundColor(Color(UIColor.systemGray))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 60)
+                        .padding(.bottom, 15)
+                        .padding(.leading, 20)
+                    
+                    // idea row
                     ForEach (section.contentideas) { idea in
                         ideaRow(idea: idea)
+                            .padding(.leading, 20)
+                            .padding(.trailing, 20)
+                            .padding(.top, 10)
+                            .padding(.bottom, 10)
                     }
+                    
                 }
-            }
-            
+            } // end of vstack
         }
-        .listStyle(GroupedListStyle())
-        
-        
+        .background(Color(UIColor.systemBackground))
         
     }
 }
