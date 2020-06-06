@@ -40,7 +40,7 @@ struct ContentView: View {
                                 .font(.headline)
                             Spacer()
                             VStack {
-                                Text("View all ideas")
+                                Text("What is this place?")
                                     .font(.subheadline)
                                     .padding(2.0)
                                     .overlay(
@@ -48,8 +48,6 @@ struct ContentView: View {
                                         .stroke(lineWidth: 1)
                                     )
                                 Image(systemName: "chevron.down")
-                            }.onTapGesture {
-                                self.issueId = 666
                             }
                             
                         }
@@ -81,47 +79,42 @@ struct ContentView: View {
                             .padding(.top, 10)
                             .frame(height: 200)
                             
-                            
-//                            // top border
-//                            Rectangle()
-//                                .fill(Color(UIColor.systemBlue))
-//                                .frame(width: UIScreen.main.bounds.size.width, height: 0.2, alignment: .center)
                             // list of ideas
                             ideaList()
                         }
-                        
-                        
-                        // swipe back handler
-                        GeometryReader { geometry in
-                            HStack {
-                                Color.white
-                                .frame(
-                                    width: 30,
-                                    height: UIScreen.main.bounds.size.height - geometry.safeAreaInsets.top - geometry.safeAreaInsets.bottom
-                                )
-                                .offset(x: self.offset.width, y: 0)
-                                    .opacity(0.0001)
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged { gesture in
-                                            self.offset = gesture.translation
-                                        }
-                                        .onEnded { _ in
-                                            if abs(self.offset.width) > 20 {
-                                                self.issueId = 0
-                                            }
-                                            self.offset = .zero
-                                        }
-                                )
-                                Spacer()
-                            }
-                        }
-                            
-                        
-                        
+  
                     }
                     .offset(x: issueId == 0 ? UIScreen.main.bounds.size.width : 0)
                     .animation(.timingCurve(0.14, 1, 0.34, 1, duration: issueId == 0 ? 0.3 : 0.6))
+                    
+                    // add idea floating button
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Spacer()
+                            ZStack {
+                                Circle()
+                                    .fill(Color(UIColor.systemBlue))
+                                    .frame(width: 56, height: 56)
+                                    .shadow(color: .gray, radius: 6, x: 3, y: 6)
+                                HStack (alignment: .bottom) {
+                                    Image(systemName: "lightbulb.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(height: 24)
+                                        .foregroundColor(Color(UIColor.systemBackground))
+                                        .offset(x: 4)
+                                    Image(systemName: "plus")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(height: 10)
+                                        .foregroundColor(Color(UIColor.systemBackground))
+                                        .offset(x: -4)
+                                }
+                            }
+                        .padding()
+                        }
+                    }
                 }
                 .navigationBarColor(.clear) // requires cleanStatusBar.swift
                 .navigationBarTitle("", displayMode: .inline)
@@ -141,17 +134,7 @@ struct ContentView: View {
                                 //
                                 Text("Menu")
                             }
-                            
-
-                            
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                                .frame(height: 23)
-                            
-//                            HStack(spacing: 10){
-//                                Image(systemName: "chevron.left")
-//                                Text("Menu")
-//                            }
+                            .background(Color(UIColor.systemGray6))
                         }
                     )
                     : AnyView(Text(""))

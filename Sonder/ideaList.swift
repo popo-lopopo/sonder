@@ -67,6 +67,8 @@ struct ideaRow: View {
 }
 
 struct ideaList: View {
+    
+    // body
     var body: some View {
         // ideas of day 1
         let a1 = idea(name: "aaa")
@@ -86,34 +88,39 @@ struct ideaList: View {
         
         let sections = [timeperiod(name: "Today", contentideas: ideasday1) ,timeperiod(name: "This Week", contentideas: ideasday2)]
         
-        return ScrollView {
+        return ZStack {
             
-            VStack (spacing: 0) {
-                ForEach (sections) {section in
-                    
-                    // group label
-                    HStack {
-                        Text(section.name)
-                            .fontWeight(.light)
-                        Spacer()
-                    }
-                    .foregroundColor(Color(UIColor.systemGray))
-                    .padding(.top, 60)
-                    .padding(.bottom, 15)
-                    .padding(.leading, 20)
-                    
-                    
-                    // idea row
-                    ForEach (section.contentideas) { idea in
-                        ideaRow(idea: idea)
+            
+            
+                ScrollView {
+                    VStack (spacing: 0) {
+                        ForEach (sections) {section in
+                            
+                            // group label
+                            HStack {
+                                Text(section.name)
+                                    .fontWeight(.light)
+                                Spacer()
+                            }
+                            .foregroundColor(Color(UIColor.systemGray))
+                            .padding(.top, 60)
+                            .padding(.bottom, 15)
                             .padding(.leading, 20)
-                            .padding(.trailing, 20)
-                            .padding(.top, 10)
-                            .padding(.bottom, 10)
-                    }
-                    
+                            
+                            
+                            // idea row
+                            ForEach (section.contentideas) { idea in
+                                ideaRow(idea: idea)
+                                    .padding(.leading, 20)
+                                    .padding(.trailing, 20)
+                                    .padding(.top, 10)
+                                    .padding(.bottom, 10)
+                            }
+                            
+                        }
+                    } // end of vstack
                 }
-            } // end of vstack
+            
         }
         .background(Color(UIColor.systemBackground))
         
