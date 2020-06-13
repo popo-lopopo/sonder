@@ -147,10 +147,10 @@ class IssueGraph: SKScene {
         var posmin:Int?
         let posmax:Int = Int(self.frame.width / 3)
         var xval:Int?
-        for _ in 1...7 {
+        for i in 1...8 {
             
-            radius = Int.random(in: 30...100)
-            posmin = radius! + 30
+            radius = Int.random(in: 40...100)
+            posmin = radius! + 40
             
             xval = Int.random(in: posmin!...posmax)
 
@@ -162,6 +162,7 @@ class IssueGraph: SKScene {
             // issue node
             let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius!))
             issueNode.fillColor = UIColor.systemBlue
+            issueNode.fillTexture = SKTexture.init(imageNamed: "goals/\(i)")
             issueNode.strokeColor = UIColor.systemBlue
             issueNode.position = CGPoint(x: randx, y: randy)
             issueNode.name = "issue"
@@ -176,7 +177,6 @@ class IssueGraph: SKScene {
             shield.falloff = 0
             issueNode.addChild(shield)
 
-            
             // add issue node
             self.addChild(issueNode)
             
