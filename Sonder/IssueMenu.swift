@@ -162,7 +162,7 @@ class IssueGraph: SKScene {
             // issue node
             let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius!))
             issueNode.fillColor = UIColor.systemBlue
-            issueNode.fillTexture = SKTexture.init(imageNamed: "goals/\(i)") // 
+            issueNode.fillTexture = SKTexture.init(imageNamed: "goals/\(i)")
             issueNode.strokeColor = UIColor.systemBlue
             issueNode.position = CGPoint(x: randx, y: randy)
             issueNode.name = "issue"
