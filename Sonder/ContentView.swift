@@ -82,39 +82,40 @@ struct ContentView: View {
                             // list of ideas
                             ideaList()
                         }
+                        
+                        // add idea floating button
+                        HStack {
+                            Spacer()
+                            VStack {
+                                Spacer()
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(UIColor.systemBlue))
+                                        .frame(width: 56, height: 56)
+                                        .shadow(color: .gray, radius: 6, x: 3, y: 6)
+                                    HStack (alignment: .bottom) {
+                                        Image(systemName: "lightbulb.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: 24)
+                                            .foregroundColor(Color(UIColor.systemBackground))
+                                            .offset(x: 4)
+                                        Image(systemName: "plus")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: 10)
+                                            .foregroundColor(Color(UIColor.systemBackground))
+                                            .offset(x: -4)
+                                    }
+                                }
+                            .padding()
+                            }
+                        }
   
                     }
                     .offset(x: issueId == 0 ? UIScreen.main.bounds.size.width : 0)
                     .animation(.timingCurve(0.14, 1, 0.34, 1, duration: issueId == 0 ? 0.3 : 0.6))
                     
-                    // add idea floating button
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Spacer()
-                            ZStack {
-                                Circle()
-                                    .fill(Color(UIColor.systemBlue))
-                                    .frame(width: 56, height: 56)
-                                    .shadow(color: .gray, radius: 6, x: 3, y: 6)
-                                HStack (alignment: .bottom) {
-                                    Image(systemName: "lightbulb.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: 24)
-                                        .foregroundColor(Color(UIColor.systemBackground))
-                                        .offset(x: 4)
-                                    Image(systemName: "plus")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: 10)
-                                        .foregroundColor(Color(UIColor.systemBackground))
-                                        .offset(x: -4)
-                                }
-                            }
-                        .padding()
-                        }
-                    }
                 }
                 .navigationBarColor(.clear) // requires cleanStatusBar.swift
                 .navigationBarTitle("", displayMode: .inline)
