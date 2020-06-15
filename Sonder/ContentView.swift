@@ -91,20 +91,20 @@ struct ContentView: View {
                                 ZStack {
                                     Circle()
                                         .fill(Color(UIColor.systemBlue))
-                                        .frame(width: 56, height: 56)
-                                        .shadow(color: .gray, radius: 6, x: 3, y: 6)
+                                        .frame(width: 60, height: 60)
+                                        //.shadow(color: .black, radius: 6, x: 3, y: 6)
                                     HStack (alignment: .bottom) {
                                         Image(systemName: "lightbulb.fill")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(height: 24)
-                                            .foregroundColor(Color(UIColor.systemBackground))
+                                            .foregroundColor(Color(UIColor.white))
                                             .offset(x: 4)
                                         Image(systemName: "plus")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(height: 10)
-                                            .foregroundColor(Color(UIColor.systemBackground))
+                                            .foregroundColor(Color(UIColor.white))
                                             .offset(x: -4)
                                     }
                                 }

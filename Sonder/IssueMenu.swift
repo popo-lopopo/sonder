@@ -150,13 +150,13 @@ class IssueGraph: SKScene {
         for i in 1...8 {
             
             //radius = Int.random(in: 40...100)
-            radius = 66
+            radius = 60
             posmin = radius! + 40
             
             xval = Int.random(in: posmin!...posmax)
 
             // random startpos on a circle of radius xval
-            let angle = Float.random(in: 0...1) * Float.pi * 2;
+            let angle = Float.random(in: 0.75...1) * Float.pi * 2;
             let randx = CGFloat(cos(angle) * Float(xval!))
             let randy = CGFloat(sin(angle) * Float(xval!))
             
@@ -164,7 +164,7 @@ class IssueGraph: SKScene {
             let issueNode = SKShapeNode(circleOfRadius: CGFloat(radius!))
             issueNode.fillColor = UIColor.white
             issueNode.fillTexture = SKTexture.init(imageNamed: "goals/\(i)")// blabla
-            issueNode.strokeColor = UIColor.label
+            issueNode.strokeColor = UIColor.black
             issueNode.position = CGPoint(x: randx, y: randy)
             issueNode.name = "issue"
             issueNode.physicsBody = SKPhysicsBody(polygonFrom: issueNode.path!)
