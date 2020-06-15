@@ -189,7 +189,7 @@ class IssueGraph: SKScene {
                 anchorB: rootnode.position
                 )
             spring.frequency = 5.0
-            spring.damping = 0.9
+            spring.damping = 0.2
             self.physicsWorld.add(spring)
             
         
@@ -223,7 +223,7 @@ class IssueGraph: SKScene {
             
             if isTouch(start: self.startpos!, end: self.selectednode!.position) {
                 self.view?.isUserInteractionEnabled = false
-                self.v?.issueId.wrappedValue = 666
+                self.v?.issueId.wrappedValue = 3
                 self.camera?.run(slidecamera!)
                 self.selectednode?.run(movetofocus!, completion: {
                     self.view?.isPaused = true

@@ -86,13 +86,13 @@ struct ideaList: View {
         let e2 = idea(name: "eee")
         let ideasday2 = [a2,b2,c2,d2,e2]
         
-        let sections = [timeperiod(name: "Today", contentideas: ideasday1) ,timeperiod(name: "This Week", contentideas: ideasday2)]
+        let sections = [timeperiod(name: "", contentideas: ideasday1) ,timeperiod(name: "This Week", contentideas: ideasday2)]
         
         return ZStack {
             
             
             
-                ScrollView {
+            ScrollView (showsIndicators: false) {
                     VStack (spacing: 0) {
                         ForEach (sections) {section in
                             

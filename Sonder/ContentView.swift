@@ -16,7 +16,6 @@ struct ContentView: View {
     // id of the issue to display
     // if unset, display issue Graph
     @State var issueId = 0
-    @State private var offset = CGSize.zero // for back swipe
         
     // main
     var body: some View {
@@ -59,28 +58,28 @@ struct ContentView: View {
                         
                         VStack (alignment: .leading, spacing: 0) {
                             // right text lext to the icon
-                            VStack (alignment: .leading) {
-                                // desc of the selected issue
-                                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ultricies lacinia. Vivamus eu aliquam felis. Morbi at rutrum arcu. Fusce nulla dolor, congue at orci nec, aliquet congue purus. ")
-                                    .font(.caption)
+                            // desc of the selected issue
+                            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ultricies lacinia. Vivamus eu aliquam felis. Morbi at rutrum arcu. Fusce nulla dolor, congue at orci nec. ")
+                                .font(.caption)
+                                .padding(.leading, UIScreen.main.bounds.size.width / 3 + 30)
+                                .padding(.trailing, 30)
+                            
+                            // main issue title
+                            HStack (spacing: 0) {
+                                Text("A pretty long issue title for \(self.issueId)")
+                                    .font(.largeTitle).fontWeight(.bold)
+                                    .padding()
+                                
                                 Spacer()
-                                // learn more button
-                                Text("Learn More")
-                                    .font(.caption)
-                                    .padding(2.0)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 5)
-                                        .stroke(lineWidth: 1)
-                                    )
                             }
-                            .padding(.leading, UIScreen.main.bounds.size.width / 3 + 30)
-                            .padding(.trailing, 30)
-                            .padding(.bottom, 30)
-                            .padding(.top, 10)
-                            .frame(height: 200)
+                            .foregroundColor(Color(UIColor.systemBackground))
+                            .background(Color(UIColor(named: "colors/\(self.issueId)") ?? .gray))
+                            .offset(y: 40)
+                            
                             
                             // list of ideas
                             ideaList()
+                            .zIndex(-1)
                         }
                         
                         // add idea floating button
@@ -90,7 +89,7 @@ struct ContentView: View {
                                 Spacer()
                                 ZStack {
                                     Circle()
-                                        .fill(Color(UIColor.systemBlue))
+                                        .fill(Color(UIColor(named: "colors/\(self.issueId)") ?? .gray))
                                         .frame(width: 60, height: 60)
                                         //.shadow(color: .black, radius: 6, x: 3, y: 6)
                                     HStack (alignment: .bottom) {
@@ -132,16 +131,17 @@ struct ContentView: View {
                                     .frame(height:21)
                                     .offset(x: -7)
                                 .font(Font.title.weight(.medium))
-                                //
+                                // back button
                                 Text("Menu")
                             }
+                            .foregroundColor(Color(UIColor(named: "colors/\(self.issueId)") ?? .gray))
                             .background(Color(UIColor.systemGray6))
                         }
                     )
                     : AnyView(Text(""))
                 )
             } // end of navigationview
-                .accentColor(Color(UIColor.systemBlue))
+                .accentColor(Color(UIColor(named: "colors/\(self.issueId)") ?? .gray))
 
     } // end of body
     

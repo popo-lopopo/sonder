@@ -23,6 +23,7 @@
 		E2E37AF82476B70D0004FCA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2E37AF62476B70D0004FCA1 /* LaunchScreen.storyboard */; };
 		E2E37B032476B70E0004FCA1 /* SonderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E37B022476B70E0004FCA1 /* SonderTests.swift */; };
 		E2E37B0E2476B70E0004FCA1 /* SonderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E37B0D2476B70E0004FCA1 /* SonderUITests.swift */; };
+		E2F7AC2A249827F10084C28B /* issueNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7AC29249827F00084C28B /* issueNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		E2E37B092476B70E0004FCA1 /* SonderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SonderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E37B0D2476B70E0004FCA1 /* SonderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SonderUITests.swift; sourceTree = "<group>"; };
 		E2E37B0F2476B70E0004FCA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2F7AC29249827F00084C28B /* issueNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = issueNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,10 +118,11 @@
 			isa = PBXGroup;
 			children = (
 				E2A7560024859C9B00D32764 /* idea.swift */,
-				E2A7560224859CD200D32764 /* ideaList.swift */,
+				E2F7AC29249827F00084C28B /* issueNode.swift */,
 				E2A5E6DD2489A170006AD27D /* ideaView.swift */,
-				E28391F524851E79009C7303 /* IssueMenu.swift */,
+				E2A7560224859CD200D32764 /* ideaList.swift */,
 				E2E37AEF2476B70C0004FCA1 /* ContentView.swift */,
+				E28391F524851E79009C7303 /* IssueMenu.swift */,
 				E2E37AF12476B70D0004FCA1 /* Assets.xcassets */,
 				E2A755FC2485795F00D32764 /* cleanStatusBar.swift */,
 				E28391F32484FCAF009C7303 /* SpriteKitTimingFunctions.swift */,
@@ -296,6 +299,7 @@
 				E2A5E6DE2489A170006AD27D /* ideaView.swift in Sources */,
 				E28391F624851E79009C7303 /* IssueMenu.swift in Sources */,
 				E2A755FD2485795F00D32764 /* cleanStatusBar.swift in Sources */,
+				E2F7AC2A249827F10084C28B /* issueNode.swift in Sources */,
 				E28391F42484FCAF009C7303 /* SpriteKitTimingFunctions.swift in Sources */,
 				E2E37AE92476B70C0004FCA1 /* AppDelegate.swift in Sources */,
 				E2E37AEE2476B70C0004FCA1 /* Sonder.xcdatamodeld in Sources */,
